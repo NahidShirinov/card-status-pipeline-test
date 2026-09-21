@@ -1,0 +1,19 @@
+spring:
+  application:
+    name: card-status-pipeline
+  jpa:
+    hibernate:
+      ddl-auto: update
+    open-in-view: false
+  kafka:
+    producer:
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.apache.kafka.common.serialization.StringSerializer
+
+app:
+  kafka:
+    topic: card-status-events
+
+external:
+  card-status:
+    base-url: http://localhost:8080
