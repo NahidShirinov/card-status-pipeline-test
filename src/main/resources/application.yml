@@ -1,11 +1,19 @@
+server:
+  port: 8090
+
 spring:
   application:
     name: card-status-pipeline
+  datasource:
+    url: jdbc:postgresql://localhost:5432/carddb
+    username: carduser
+    password: cardpass
   jpa:
     hibernate:
       ddl-auto: update
     open-in-view: false
   kafka:
+    bootstrap-servers: localhost:9092
     producer:
       key-serializer: org.apache.kafka.common.serialization.StringSerializer
       value-serializer: org.apache.kafka.common.serialization.StringSerializer
