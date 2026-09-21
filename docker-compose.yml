@@ -61,5 +61,20 @@ services:
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock:ro
 
+  app:
+    build: .
+    container_name: card-status-app
+    ports:
+      - "8090:8090"
+    environment:
+      SPRING_PROFILES_ACTIVE: docker
+    depends_on:
+      postgres:
+        condition: service_healthy
+      kafka:
+        condition: service_started
+      card-status-mock:
+        condition: service_started
+
 volumes:
   pg-data:
