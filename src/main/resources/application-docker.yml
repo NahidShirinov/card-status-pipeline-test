@@ -1,0 +1,9 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://postgres:5432/carddb
+  kafka:
+    bootstrap-servers: kafka:29092
+
+external:
+  card-status:
+    base-url: http://card-status-mock:8080
