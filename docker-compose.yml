@@ -16,14 +16,6 @@ services:
       timeout: 5s
       retries: 10
 
-  adminer:
-    image: adminer:4
-    container_name: card-status-adminer
-    ports:
-      - "8081:8080"
-    depends_on:
-      - postgres
-
   kafka:
     image: apache/kafka:3.9.0
     container_name: card-status-kafka
