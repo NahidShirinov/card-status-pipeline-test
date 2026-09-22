@@ -12,6 +12,9 @@ import java.time.Instant;
  * A failed card-status event, as consumed from Kafka - lets you see
  * and later reprocess/alert on failures without scanning the whole
  * card_status_record table for result != SUCCESS.
+ *
+ * eventId is unique for the same reason as OutboxRecord: Kafka's
+ * at-least-once delivery means a redelivered message must be a no-op.
  */
 @Entity
 public class FailureCard {
@@ -19,6 +22,9 @@ public class FailureCard {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long recordId;
+
+    @Column(nullable = false, unique = true)
+    private String eventId;
 
     @Column(nullable = false)
     private String cardId;
@@ -38,7 +44,8 @@ public class FailureCard {
     protected FailureCard() {
     }
 
-    public FailureCard(String cardId, String cardNumber, String status, String result, Instant receivedAt) {
+    public FailureCard(String eventId, String cardId, String cardNumber, String status, String result, Instant receivedAt) {
+        this.eventId = eventId;
         this.cardId = cardId;
         this.cardNumber = cardNumber;
         this.status = status;
@@ -48,6 +55,10 @@ public class FailureCard {
 
     public Long getRecordId() {
         return recordId;
+    }
+
+    public String getEventId() {
+        return eventId;
     }
 
     public String getCardId() {
