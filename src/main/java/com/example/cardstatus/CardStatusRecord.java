@@ -13,10 +13,13 @@ public class CardStatusRecord {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Long recordId;
 
     @Column(nullable = false)
-    private String cardId;
+    private String id;
+
+    @Column(nullable = false)
+    private String cardNumber;
 
     @Column(nullable = false)
     private String requestedStatus;
@@ -30,19 +33,24 @@ public class CardStatusRecord {
     protected CardStatusRecord() {
     }
 
-    public CardStatusRecord(String cardId, String requestedStatus, String result, Instant processedAt) {
-        this.cardId = cardId;
+    public CardStatusRecord(String id, String cardNumber, String requestedStatus, String result, Instant processedAt) {
+        this.id = id;
+        this.cardNumber = cardNumber;
         this.requestedStatus = requestedStatus;
         this.result = result;
         this.processedAt = processedAt;
     }
 
-    public Long getId() {
+    public Long getRecordId() {
+        return recordId;
+    }
+
+    public String getId() {
         return id;
     }
 
-    public String getCardId() {
-        return cardId;
+    public String getCardNumber() {
+        return cardNumber;
     }
 
     public String getRequestedStatus() {

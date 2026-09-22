@@ -1,7 +1,8 @@
 package com.example.cardstatus;
 
 public record ProcessingResult(
-        String cardId,
+        String id,
+        String cardNumber,
         boolean success,
         long externalCallMs,
         long dbWriteMs,
