@@ -1,0 +1,502 @@
+[
+  {
+    "id": "4111111110000000",
+    "cardNumber": "4111111110000000",
+    "requestedStatus": "BLOCKED"
+  },
+  {
+    "id": "4111111110000001",
+    "cardNumber": "4111111110000001",
+    "requestedStatus": "EXPIRED"
+  },
+  {
+    "id": "4111111110000002",
+    "cardNumber": "4111111110000002",
+    "requestedStatus": "EXPIRED"
+  },
+  {
+    "id": "4111111110000003",
+    "cardNumber": "4111111110000003",
+    "requestedStatus": "EXPIRED"
+  },
+  {
+    "id": "4111111110000004",
+    "cardNumber": "4111111110000004",
+    "requestedStatus": "EXPIRED"
+  },
+  {
+    "id": "4111111110000005",
+    "cardNumber": "4111111110000005",
+    "requestedStatus": "ACTIVE"
+  },
+  {
+    "id": "4111111110000006",
+    "cardNumber": "4111111110000006",
+    "requestedStatus": "EXPIRED"
+  },
+  {
+    "id": "4111111110000007",
+    "cardNumber": "4111111110000007",
+    "requestedStatus": "BLOCKED"
+  },
+  {
+    "id": "4111111110000008",
+    "cardNumber": "4111111110000008",
+    "requestedStatus": "BLOCKED"
+  },
+  {
+    "id": "4111111110000009",
+    "cardNumber": "4111111110000009",
+    "requestedStatus": "BLOCKED"
+  },
+  {
+    "id": "4111111110000010",
+    "cardNumber": "4111111110000010",
+    "requestedStatus": "ACTIVE"
+  },
+  {
+    "id": "4111111110000011",
+    "cardNumber": "4111111110000011",
+    "requestedStatus": "EXPIRED"
+  },
+  {
+    "id": "4111111110000012",
+    "cardNumber": "4111111110000012",
+    "requestedStatus": "ACTIVE"
+  },
+  {
+    "id": "4111111110000013",
+    "cardNumber": "4111111110000013",
+    "requestedStatus": "EXPIRED"
+  },
+  {
+    "id": "4111111110000014",
+    "cardNumber": "4111111110000014",
+    "requestedStatus": "ACTIVE"
+  },
+  {
+    "id": "4111111110000015",
+    "cardNumber": "4111111110000015",
+    "requestedStatus": "ACTIVE"
+  },
+  {
+    "id": "4111111110000016",
+    "cardNumber": "4111111110000016",
+    "requestedStatus": "EXPIRED"
+  },
+  {
+    "id": "4111111110000017",
+    "cardNumber": "4111111110000017",
+    "requestedStatus": "ACTIVE"
+  },
+  {
+    "id": "4111111110000018",
+    "cardNumber": "4111111110000018",
+    "requestedStatus": "EXPIRED"
+  },
+  {
+    "id": "4111111110000019",
+    "cardNumber": "4111111110000019",
+    "requestedStatus": "EXPIRED"
+  },
+  {
+    "id": "4111111110000020",
+    "cardNumber": "4111111110000020",
+    "requestedStatus": "EXPIRED"
+  },
+  {
+    "id": "4111111110000021",
+    "cardNumber": "4111111110000021",
+    "requestedStatus": "ACTIVE"
+  },
+  {
+    "id": "4111111110000022",
+    "cardNumber": "4111111110000022",
+    "requestedStatus": "BLOCKED"
+  },
+  {
+    "id": "4111111110000023",
+    "cardNumber": "4111111110000023",
+    "requestedStatus": "EXPIRED"
+  },
+  {
+    "id": "4111111110000024",
+    "cardNumber": "4111111110000024",
+    "requestedStatus": "ACTIVE"
+  },
+  {
+    "id": "4111111110000025",
+    "cardNumber": "4111111110000025",
+    "requestedStatus": "BLOCKED"
+  },
+  {
+    "id": "4111111110000026",
+    "cardNumber": "4111111110000026",
+    "requestedStatus": "ACTIVE"
+  },
+  {
+    "id": "4111111110000027",
+    "cardNumber": "4111111110000027",
+    "requestedStatus": "ACTIVE"
+  },
+  {
+    "id": "4111111110000028",
+    "cardNumber": "4111111110000028",
+    "requestedStatus": "BLOCKED"
+  },
+  {
+    "id": "4111111110000029",
+    "cardNumber": "4111111110000029",
+    "requestedStatus": "ACTIVE"
+  },
+  {
+    "id": "4111111110000030",
+    "cardNumber": "4111111110000030",
+    "requestedStatus": "BLOCKED"
+  },
+  {
+    "id": "4111111110000031",
+    "cardNumber": "4111111110000031",
+    "requestedStatus": "ACTIVE"
+  },
+  {
+    "id": "4111111110000032",
+    "cardNumber": "4111111110000032",
+    "requestedStatus": "ACTIVE"
+  },
+  {
+    "id": "4111111110000033",
+    "cardNumber": "4111111110000033",
+    "requestedStatus": "EXPIRED"
+  },
+  {
+    "id": "4111111110000034",
+    "cardNumber": "4111111110000034",
+    "requestedStatus": "EXPIRED"
+  },
+  {
+    "id": "4111111110000035",
+    "cardNumber": "4111111110000035",
+    "requestedStatus": "EXPIRED"
+  },
+  {
+    "id": "4111111110000036",
+    "cardNumber": "4111111110000036",
+    "requestedStatus": "ACTIVE"
+  },
+  {
+    "id": "4111111110000037",
+    "cardNumber": "4111111110000037",
+    "requestedStatus": "ACTIVE"
+  },
+  {
+    "id": "4111111110000038",
+    "cardNumber": "4111111110000038",
+    "requestedStatus": "ACTIVE"
+  },
+  {
+    "id": "4111111110000039",
+    "cardNumber": "4111111110000039",
+    "requestedStatus": "ACTIVE"
+  },
+  {
+    "id": "4111111110000040",
+    "cardNumber": "4111111110000040",
+    "requestedStatus": "BLOCKED"
+  },
+  {
+    "id": "4111111110000041",
+    "cardNumber": "4111111110000041",
+    "requestedStatus": "BLOCKED"
+  },
+  {
+    "id": "4111111110000042",
+    "cardNumber": "4111111110000042",
+    "requestedStatus": "ACTIVE"
+  },
+  {
+    "id": "4111111110000043",
+    "cardNumber": "4111111110000043",
+    "requestedStatus": "BLOCKED"
+  },
+  {
+    "id": "4111111110000044",
+    "cardNumber": "4111111110000044",
+    "requestedStatus": "BLOCKED"
+  },
+  {
+    "id": "4111111110000045",
+    "cardNumber": "4111111110000045",
+    "requestedStatus": "ACTIVE"
+  },
+  {
+    "id": "4111111110000046",
+    "cardNumber": "4111111110000046",
+    "requestedStatus": "EXPIRED"
+  },
+  {
+    "id": "4111111110000047",
+    "cardNumber": "4111111110000047",
+    "requestedStatus": "BLOCKED"
+  },
+  {
+    "id": "4111111110000048",
+    "cardNumber": "4111111110000048",
+    "requestedStatus": "BLOCKED"
+  },
+  {
+    "id": "4111111110000049",
+    "cardNumber": "4111111110000049",
+    "requestedStatus": "BLOCKED"
+  },
+  {
+    "id": "4111111110000050",
+    "cardNumber": "4111111110000050",
+    "requestedStatus": "ACTIVE"
+  },
+  {
+    "id": "4111111110000051",
+    "cardNumber": "4111111110000051",
+    "requestedStatus": "ACTIVE"
+  },
+  {
+    "id": "4111111110000052",
+    "cardNumber": "4111111110000052",
+    "requestedStatus": "ACTIVE"
+  },
+  {
+    "id": "4111111110000053",
+    "cardNumber": "4111111110000053",
+    "requestedStatus": "EXPIRED"
+  },
+  {
+    "id": "4111111110000054",
+    "cardNumber": "4111111110000054",
+    "requestedStatus": "ACTIVE"
+  },
+  {
+    "id": "4111111110000055",
+    "cardNumber": "4111111110000055",
+    "requestedStatus": "ACTIVE"
+  },
+  {
+    "id": "4111111110000056",
+    "cardNumber": "4111111110000056",
+    "requestedStatus": "ACTIVE"
+  },
+  {
+    "id": "4111111110000057",
+    "cardNumber": "4111111110000057",
+    "requestedStatus": "ACTIVE"
+  },
+  {
+    "id": "4111111110000058",
+    "cardNumber": "4111111110000058",
+    "requestedStatus": "ACTIVE"
+  },
+  {
+    "id": "4111111110000059",
+    "cardNumber": "4111111110000059",
+    "requestedStatus": "ACTIVE"
+  },
+  {
+    "id": "4111111110000060",
+    "cardNumber": "4111111110000060",
+    "requestedStatus": "ACTIVE"
+  },
+  {
+    "id": "4111111110000061",
+    "cardNumber": "4111111110000061",
+    "requestedStatus": "BLOCKED"
+  },
+  {
+    "id": "4111111110000062",
+    "cardNumber": "4111111110000062",
+    "requestedStatus": "ACTIVE"
+  },
+  {
+    "id": "4111111110000063",
+    "cardNumber": "4111111110000063",
+    "requestedStatus": "EXPIRED"
+  },
+  {
+    "id": "4111111110000064",
+    "cardNumber": "4111111110000064",
+    "requestedStatus": "EXPIRED"
+  },
+  {
+    "id": "4111111110000065",
+    "cardNumber": "4111111110000065",
+    "requestedStatus": "BLOCKED"
+  },
+  {
+    "id": "4111111110000066",
+    "cardNumber": "4111111110000066",
+    "requestedStatus": "BLOCKED"
+  },
+  {
+    "id": "4111111110000067",
+    "cardNumber": "4111111110000067",
+    "requestedStatus": "ACTIVE"
+  },
+  {
+    "id": "4111111110000068",
+    "cardNumber": "4111111110000068",
+    "requestedStatus": "BLOCKED"
+  },
+  {
+    "id": "4111111110000069",
+    "cardNumber": "4111111110000069",
+    "requestedStatus": "BLOCKED"
+  },
+  {
+    "id": "4111111110000070",
+    "cardNumber": "4111111110000070",
+    "requestedStatus": "BLOCKED"
+  },
+  {
+    "id": "4111111110000071",
+    "cardNumber": "4111111110000071",
+    "requestedStatus": "ACTIVE"
+  },
+  {
+    "id": "4111111110000072",
+    "cardNumber": "4111111110000072",
+    "requestedStatus": "ACTIVE"
+  },
+  {
+    "id": "4111111110000073",
+    "cardNumber": "4111111110000073",
+    "requestedStatus": "BLOCKED"
+  },
+  {
+    "id": "4111111110000074",
+    "cardNumber": "4111111110000074",
+    "requestedStatus": "ACTIVE"
+  },
+  {
+    "id": "4111111110000075",
+    "cardNumber": "4111111110000075",
+    "requestedStatus": "BLOCKED"
+  },
+  {
+    "id": "4111111110000076",
+    "cardNumber": "4111111110000076",
+    "requestedStatus": "EXPIRED"
+  },
+  {
+    "id": "4111111110000077",
+    "cardNumber": "4111111110000077",
+    "requestedStatus": "BLOCKED"
+  },
+  {
+    "id": "4111111110000078",
+    "cardNumber": "4111111110000078",
+    "requestedStatus": "BLOCKED"
+  },
+  {
+    "id": "4111111110000079",
+    "cardNumber": "4111111110000079",
+    "requestedStatus": "EXPIRED"
+  },
+  {
+    "id": "4111111110000080",
+    "cardNumber": "4111111110000080",
+    "requestedStatus": "BLOCKED"
+  },
+  {
+    "id": "4111111110000081",
+    "cardNumber": "4111111110000081",
+    "requestedStatus": "BLOCKED"
+  },
+  {
+    "id": "4111111110000082",
+    "cardNumber": "4111111110000082",
+    "requestedStatus": "BLOCKED"
+  },
+  {
+    "id": "4111111110000083",
+    "cardNumber": "4111111110000083",
+    "requestedStatus": "BLOCKED"
+  },
+  {
+    "id": "4111111110000084",
+    "cardNumber": "4111111110000084",
+    "requestedStatus": "BLOCKED"
+  },
+  {
+    "id": "4111111110000085",
+    "cardNumber": "4111111110000085",
+    "requestedStatus": "EXPIRED"
+  },
+  {
+    "id": "4111111110000086",
+    "cardNumber": "4111111110000086",
+    "requestedStatus": "BLOCKED"
+  },
+  {
+    "id": "4111111110000087",
+    "cardNumber": "4111111110000087",
+    "requestedStatus": "BLOCKED"
+  },
+  {
+    "id": "4111111110000088",
+    "cardNumber": "4111111110000088",
+    "requestedStatus": "EXPIRED"
+  },
+  {
+    "id": "4111111110000089",
+    "cardNumber": "4111111110000089",
+    "requestedStatus": "ACTIVE"
+  },
+  {
+    "id": "4111111110000090",
+    "cardNumber": "4111111110000090",
+    "requestedStatus": "BLOCKED"
+  },
+  {
+    "id": "4111111110000091",
+    "cardNumber": "4111111110000091",
+    "requestedStatus": "ACTIVE"
+  },
+  {
+    "id": "4111111110000092",
+    "cardNumber": "4111111110000092",
+    "requestedStatus": "ACTIVE"
+  },
+  {
+    "id": "4111111110000093",
+    "cardNumber": "4111111110000093",
+    "requestedStatus": "BLOCKED"
+  },
+  {
+    "id": "4111111110000094",
+    "cardNumber": "4111111110000094",
+    "requestedStatus": "EXPIRED"
+  },
+  {
+    "id": "4111111110000095",
+    "cardNumber": "4111111110000095",
+    "requestedStatus": "EXPIRED"
+  },
+  {
+    "id": "4111111110000096",
+    "cardNumber": "4111111110000096",
+    "requestedStatus": "EXPIRED"
+  },
+  {
+    "id": "4111111110000097",
+    "cardNumber": "4111111110000097",
+    "requestedStatus": "ACTIVE"
+  },
+  {
+    "id": "4111111110000098",
+    "cardNumber": "4111111110000098",
+    "requestedStatus": "ACTIVE"
+  },
+  {
+    "id": "4111111110000099",
+    "cardNumber": "4111111110000099",
+    "requestedStatus": "BLOCKED"
+  }
+]
