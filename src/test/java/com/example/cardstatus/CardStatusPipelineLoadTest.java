@@ -101,10 +101,10 @@ class CardStatusPipelineLoadTest {
 
         ExecutorService pool = Executors.newFixedThreadPool(concurrency);
         List<Future<ProcessingResult>> futures = IntStream.range(0, recordCount)
-                .mapToObj(i -> pool.submit(() ->
-                        processingService.process(
-                                "41111111111" + String.format("%05d", i % 100_000),
-                                "BLOCKED")))
+                .mapToObj(i -> {
+                    String cardNumber = "41111111111" + String.format("%05d", i % 100_000);
+                    return pool.submit(() -> processingService.process(cardNumber, cardNumber, "BLOCKED"));
+                })
                 .collect(Collectors.toList());
 
         long start = System.nanoTime();
