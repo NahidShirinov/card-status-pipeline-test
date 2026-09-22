@@ -53,8 +53,7 @@ class CardStatusPipelineLoadTest {
 
     private static final String[] MAPPING_FILES = {
             "00-forced-success.json", "01-forced-error.json", "02-forced-timeout.json",
-            "10-cycle-success-1.json", "11-cycle-success-2.json", "12-cycle-success-3.json",
-            "13-cycle-success-4.json", "14-cycle-error.json"
+            "10-random-success.json", "11-random-error.json"
     };
 
     private static final String TOPIC = "card-status-events";
