@@ -16,9 +16,10 @@ public class CardStatusEventProducer {
         this.topic = topic;
     }
 
-    public void publish(String cardId, String status, String result) {
+    public void publish(String id, String cardNumber, String status, String result) {
         String payload = """
-                {"cardId":"%s","status":"%s","result":"%s"}""".formatted(cardId, status, result);
-        kafkaTemplate.send(topic, cardId, payload);
+                {"id":"%s","cardNumber":"%s","status":"%s","result":"%s"}"""
+                .formatted(id, cardNumber, status, result);
+        kafkaTemplate.send(topic, id, payload);
     }
 }
