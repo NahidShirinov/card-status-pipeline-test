@@ -2,7 +2,7 @@ spring:
   datasource:
     url: jdbc:postgresql://postgres:5432/carddb
   kafka:
-    bootstrap-servers: kafka:29092
+    bootstrap-servers: card-status-kafka-1:29092,card-status-kafka-2:29092,card-status-kafka-3:29092
 
 external:
   card-status:

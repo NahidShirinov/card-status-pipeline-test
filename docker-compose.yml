@@ -16,24 +16,46 @@ services:
       timeout: 5s
       retries: 10
 
-  kafka:
+  kafka-1: &kafka-broker
     image: apache/kafka:3.9.0
-    container_name: card-status-kafka
+    container_name: card-status-kafka-1
     ports:
       - "9092:9092"
-    environment:
+    environment: &kafka-env
       KAFKA_NODE_ID: 1
       KAFKA_PROCESS_ROLES: broker,controller
       KAFKA_LISTENERS: PLAINTEXT://:29092,CONTROLLER://:9093,PLAINTEXT_HOST://:9092
-      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://card-status-kafka:29092,PLAINTEXT_HOST://localhost:9092
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://card-status-kafka-1:29092,PLAINTEXT_HOST://localhost:9092
       KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: CONTROLLER:PLAINTEXT,PLAINTEXT:PLAINTEXT,PLAINTEXT_HOST:PLAINTEXT
       KAFKA_CONTROLLER_LISTENER_NAMES: CONTROLLER
-      KAFKA_CONTROLLER_QUORUM_VOTERS: 1@card-status-kafka:9093
+      KAFKA_CONTROLLER_QUORUM_VOTERS: 1@card-status-kafka-1:9093,2@card-status-kafka-2:9093,3@card-status-kafka-3:9093
       KAFKA_INTER_BROKER_LISTENER_NAME: PLAINTEXT
       CLUSTER_ID: 4L6g3nShT-eMCtK--X86sw
-      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
-      KAFKA_TRANSACTION_STATE_LOG_REPLICATION_FACTOR: 1
-      KAFKA_TRANSACTION_STATE_LOG_MIN_ISR: 1
+      # 3 brokers -> replication factor 3 is now real, not a workaround
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 3
+      KAFKA_TRANSACTION_STATE_LOG_REPLICATION_FACTOR: 3
+      KAFKA_TRANSACTION_STATE_LOG_MIN_ISR: 2
+      KAFKA_DEFAULT_REPLICATION_FACTOR: 3
+
+  kafka-2:
+    <<: *kafka-broker
+    container_name: card-status-kafka-2
+    ports:
+      - "9094:9092"
+    environment:
+      <<: *kafka-env
+      KAFKA_NODE_ID: 2
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://card-status-kafka-2:29092,PLAINTEXT_HOST://localhost:9094
+
+  kafka-3:
+    <<: *kafka-broker
+    container_name: card-status-kafka-3
+    ports:
+      - "9095:9092"
+    environment:
+      <<: *kafka-env
+      KAFKA_NODE_ID: 3
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://card-status-kafka-3:29092,PLAINTEXT_HOST://localhost:9095
 
   kafka-ui:
     image: provectuslabs/kafka-ui:latest
@@ -42,9 +64,11 @@ services:
       - "8082:8080"
     environment:
       KAFKA_CLUSTERS_0_NAME: local
-      KAFKA_CLUSTERS_0_BOOTSTRAPSERVERS: card-status-kafka:29092
+      KAFKA_CLUSTERS_0_BOOTSTRAPSERVERS: card-status-kafka-1:29092,card-status-kafka-2:29092,card-status-kafka-3:29092
     depends_on:
-      - kafka
+      - kafka-1
+      - kafka-2
+      - kafka-3
 
   card-status-mock:
     image: wiremock/wiremock:3.9.1
@@ -74,7 +98,11 @@ services:
     depends_on:
       postgres:
         condition: service_healthy
-      kafka:
+      kafka-1:
+        condition: service_started
+      kafka-2:
+        condition: service_started
+      kafka-3:
         condition: service_started
       card-status-mock:
         condition: service_started
