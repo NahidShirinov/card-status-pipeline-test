@@ -4,6 +4,8 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Component;
 
+import java.util.UUID;
+
 @Component
 public class CardStatusEventProducer {
 
@@ -17,9 +19,10 @@ public class CardStatusEventProducer {
     }
 
     public void publish(String id, String cardNumber, String status, String result) {
+        String eventId = UUID.randomUUID().toString();
         String payload = """
-                {"id":"%s","cardNumber":"%s","status":"%s","result":"%s"}"""
-                .formatted(id, cardNumber, status, result);
+                {"eventId":"%s","id":"%s","cardNumber":"%s","status":"%s","result":"%s"}"""
+                .formatted(eventId, id, cardNumber, status, result);
         kafkaTemplate.send(topic, id, payload);
     }
 }
