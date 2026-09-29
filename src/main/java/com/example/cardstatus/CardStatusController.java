@@ -3,6 +3,8 @@ package com.example.cardstatus;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -43,8 +45,8 @@ public class CardStatusController {
     }
 
     @GetMapping
-    @Operation(summary = "List all processed card status records from the database")
-    public List<CardStatusRecord> listProcessed() {
-        return repository.findAll();
+    @Operation(summary = "List processed card status records from the database, paginated")
+    public Page<CardStatusRecord> listProcessed(Pageable pageable) {
+        return repository.findAll(pageable);
     }
 }
