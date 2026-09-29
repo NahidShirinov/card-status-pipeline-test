@@ -11,23 +11,23 @@ import org.springframework.web.bind.annotation.RestController;
 @Tag(name = "Stats", description = "Monitoring counters built from the outbox/failure Kafka consumers")
 public class StatsController {
 
-    private final OutboxRepository outboxRepository;
+    private final SuccessCardRepository successCardRepository;
     private final FailureCardRepository failureCardRepository;
 
-    public StatsController(OutboxRepository outboxRepository, FailureCardRepository failureCardRepository) {
-        this.outboxRepository = outboxRepository;
+    public StatsController(SuccessCardRepository successCardRepository, FailureCardRepository failureCardRepository) {
+        this.successCardRepository = successCardRepository;
         this.failureCardRepository = failureCardRepository;
     }
 
     @GetMapping
     @Operation(summary = "Success/failure counts as seen by the Kafka consumers",
-            description = "Reflects what actually landed in the outbox and failure_card tables via "
+            description = "Reflects what actually landed in the success_card and failure_card tables via "
                     + "the two independent consumers, not the card_status_record table written directly by the pipeline.")
     public StatsResponse stats() {
-        long outboxCount = outboxRepository.count();
+        long successCount = successCardRepository.count();
         long failureCount = failureCardRepository.count();
-        long total = outboxCount + failureCount;
-        double successRate = total == 0 ? 0.0 : (outboxCount * 100.0) / total;
-        return new StatsResponse(outboxCount, failureCount, total, successRate);
+        long total = successCount + failureCount;
+        double successRate = total == 0 ? 0.0 : (successCount * 100.0) / total;
+        return new StatsResponse(successCount, failureCount, total, successRate);
     }
 }

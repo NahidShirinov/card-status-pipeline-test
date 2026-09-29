@@ -13,13 +13,18 @@ import java.time.Instant;
  * (not written directly by the pipeline) - this table only reflects
  * what a downstream consumer actually saw on the topic.
  *
+ * Named SuccessCard, not "outbox" - the outbox pattern (OutboxEvent)
+ * is a different thing: the write-side guarantee that a DB change and
+ * its Kafka event are never inconsistent. This table is a read-side
+ * projection built by a consumer, unrelated to that guarantee.
+ *
  * eventId is unique so a Kafka redelivery (e.g. after a rebalance,
  * before the previous poll's offsets were committed) is a no-op
  * instead of a duplicate row - Kafka only guarantees at-least-once
  * delivery, so the consumer has to be idempotent itself.
  */
 @Entity
-public class OutboxRecord {
+public class SuccessCard {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -43,10 +48,10 @@ public class OutboxRecord {
     @Column(nullable = false)
     private Instant receivedAt;
 
-    protected OutboxRecord() {
+    protected SuccessCard() {
     }
 
-    public OutboxRecord(String eventId, String cardId, String cardNumber, String status, String result, Instant receivedAt) {
+    public SuccessCard(String eventId, String cardId, String cardNumber, String status, String result, Instant receivedAt) {
         this.eventId = eventId;
         this.cardId = cardId;
         this.cardNumber = cardNumber;

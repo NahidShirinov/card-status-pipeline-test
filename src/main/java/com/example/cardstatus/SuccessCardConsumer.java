@@ -11,33 +11,33 @@ import java.time.Instant;
 
 /**
  * Independent consumer (own consumer group) that only cares about
- * successful outcomes - the topic is the same one CardStatusEventProducer
- * publishes to, this just filters and persists its own view of it.
+ * successful outcomes - the topic is the same one the outbox publisher
+ * sends to, this just filters and persists its own view of it.
  *
- * Idempotent by eventId: Kafka only guarantees at-least-once delivery,
- * so a redelivered event (e.g. after a rebalance before the previous
- * poll's offset was committed) must not create a second row.
+ * Idempotent by eventId, since Kafka only guarantees at-least-once
+ * delivery (e.g. a redelivery after a rebalance before the previous
+ * poll's offset was committed).
  */
 @Component
-public class OutboxConsumer {
+public class SuccessCardConsumer {
 
-    private static final Logger log = LoggerFactory.getLogger(OutboxConsumer.class);
+    private static final Logger log = LoggerFactory.getLogger(SuccessCardConsumer.class);
     private static final ObjectMapper MAPPER = new ObjectMapper();
 
-    private final OutboxRepository repository;
+    private final SuccessCardRepository repository;
 
-    public OutboxConsumer(OutboxRepository repository) {
+    public SuccessCardConsumer(SuccessCardRepository repository) {
         this.repository = repository;
     }
 
-    @KafkaListener(topics = "${app.kafka.topic}", groupId = "outbox-consumer")
+    @KafkaListener(topics = "${app.kafka.topic}", groupId = "success-card-consumer")
     public void consume(String payload) throws Exception {
         CardStatusEvent event = MAPPER.readValue(payload, CardStatusEvent.class);
         if (!"SUCCESS".equals(event.result())) {
             return;
         }
         try {
-            repository.save(new OutboxRecord(
+            repository.save(new SuccessCard(
                     event.eventId(), event.id(), event.cardNumber(), event.status(), event.result(), Instant.now()));
         } catch (DataIntegrityViolationException e) {
             log.info("Duplicate delivery of event {} ignored", event.eventId());
