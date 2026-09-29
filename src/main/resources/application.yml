@@ -25,6 +25,8 @@ spring:
 app:
   kafka:
     topic: card-status-events
+  outbox:
+    poll-interval-ms: 500
 
 external:
   card-status:
