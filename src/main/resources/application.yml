@@ -27,6 +27,8 @@ app:
     topic: card-status-events
   outbox:
     poll-interval-ms: 500
+  batch:
+    executor-threads: 20
 
 external:
   card-status:

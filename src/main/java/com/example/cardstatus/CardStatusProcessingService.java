@@ -2,39 +2,39 @@ package com.example.cardstatus;
 
 import org.springframework.stereotype.Service;
 
-import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 
 /**
- * The pipeline under test: external status change call -> DB write -> Kafka publish.
- * Each stage is timed separately so a load test can find which stage is the bottleneck.
+ * The pipeline under test: external status change call -> transactional
+ * DB write (record + outbox event, see CardStatusPersistenceService).
+ * Each stage is timed separately so a load test can find which stage
+ * is the bottleneck. The actual Kafka send happens later, out of this
+ * request path entirely - see OutboxPublisher.
  */
 @Service
 public class CardStatusProcessingService {
 
-    private static final int BATCH_CONCURRENCY = 20;
+    public static final int MAX_BATCH_SIZE = 1000;
 
     private final ExternalCardStatusClient externalClient;
-    private final CardStatusRepository repository;
-    private final CardStatusEventProducer eventProducer;
+    private final CardStatusPersistenceService persistenceService;
+    private final ExecutorService batchExecutor;
 
     public CardStatusProcessingService(ExternalCardStatusClient externalClient,
-                                        CardStatusRepository repository,
-                                        CardStatusEventProducer eventProducer) {
+                                        CardStatusPersistenceService persistenceService,
+                                        ExecutorService batchExecutor) {
         this.externalClient = externalClient;
-        this.repository = repository;
-        this.eventProducer = eventProducer;
+        this.persistenceService = persistenceService;
+        this.batchExecutor = batchExecutor;
     }
 
     public ProcessingResult process(String id, String cardNumber, String requestedStatus) {
         long start = System.nanoTime();
-        long externalCallMs;
         String result;
         String errorMessage = null;
 
@@ -46,15 +46,11 @@ public class CardStatusProcessingService {
             result = "FAILURE";
             errorMessage = e.getClass().getSimpleName() + ": " + e.getMessage();
         }
-        externalCallMs = elapsedMs(externalStart);
+        long externalCallMs = elapsedMs(externalStart);
 
         long dbStart = System.nanoTime();
-        repository.save(new CardStatusRecord(id, cardNumber, requestedStatus, result, Instant.now()));
+        persistenceService.saveWithOutboxEvent(id, cardNumber, requestedStatus, result);
         long dbWriteMs = elapsedMs(dbStart);
-
-        long kafkaStart = System.nanoTime();
-        eventProducer.publish(id, cardNumber, requestedStatus, result);
-        long kafkaPublishMs = elapsedMs(kafkaStart);
 
         long totalMs = elapsedMs(start);
 
@@ -64,23 +60,26 @@ public class CardStatusProcessingService {
                 "SUCCESS".equals(result),
                 externalCallMs,
                 dbWriteMs,
-                kafkaPublishMs,
                 totalMs,
                 errorMessage
         );
     }
 
     /**
-     * Processes a batch (e.g. one uploaded file's worth of rows) concurrently,
-     * bounded by BATCH_CONCURRENCY - mirrors how many parallel calls the real
-     * external service would realistically tolerate.
+     * Processes a batch (e.g. one uploaded file's worth of rows) on the
+     * application's single shared, bounded executor - not a new thread
+     * pool per call, which is what let N concurrent batch requests spawn
+     * N unrelated pools and, between them, far more threads than the
+     * process was ever sized for.
      */
     public List<ProcessingResult> processBatch(List<CardStatusRequest> requests) {
-        int poolSize = Math.min(BATCH_CONCURRENCY, Math.max(1, requests.size()));
-        ExecutorService pool = Executors.newFixedThreadPool(poolSize);
+        if (requests.size() > MAX_BATCH_SIZE) {
+            throw new IllegalArgumentException(
+                    "Batch size %d exceeds the maximum of %d".formatted(requests.size(), MAX_BATCH_SIZE));
+        }
         try {
             List<Future<ProcessingResult>> futures = requests.stream()
-                    .map(r -> pool.submit(() -> process(r.id(), r.cardNumber(), r.requestedStatus())))
+                    .map(r -> batchExecutor.submit(() -> process(r.id(), r.cardNumber(), r.requestedStatus())))
                     .toList();
 
             List<ProcessingResult> results = new ArrayList<>(futures.size());
@@ -93,8 +92,6 @@ public class CardStatusProcessingService {
             throw new IllegalStateException("Batch processing was interrupted", e);
         } catch (ExecutionException e) {
             throw new IllegalStateException("Batch processing failed", e.getCause());
-        } finally {
-            pool.shutdown();
         }
     }
 
