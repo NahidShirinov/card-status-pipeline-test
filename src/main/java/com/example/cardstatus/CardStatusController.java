@@ -8,6 +8,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -20,19 +21,29 @@ public class CardStatusController {
 
     private final CardStatusProcessingService processingService;
     private final CardStatusRepository repository;
+    private final IdempotencyService idempotencyService;
 
     public CardStatusController(CardStatusProcessingService processingService,
-                                 CardStatusRepository repository) {
+                                 CardStatusRepository repository,
+                                 IdempotencyService idempotencyService) {
         this.processingService = processingService;
         this.repository = repository;
+        this.idempotencyService = idempotencyService;
     }
 
     @PostMapping("/status")
     @Operation(summary = "Process a single card status change through the full pipeline",
-            description = "Calls the external status service, writes the result to Postgres, "
-                    + "and publishes an event to Kafka - the same path a real uploaded-file row goes through.")
-    public ProcessingResult changeStatus(@Valid @RequestBody CardStatusRequest request) {
-        return processingService.process(request.id(), request.cardNumber(), request.requestedStatus());
+            description = "Calls the external status service and writes the result to Postgres "
+                    + "(plus an outbox event for Kafka - see OutboxPublisher). Pass an optional "
+                    + "Idempotency-Key header to make a retried request return the original result "
+                    + "instead of reprocessing.")
+    public ProcessingResult changeStatus(@Valid @RequestBody CardStatusRequest request,
+                                          @RequestHeader(value = "Idempotency-Key", required = false) String idempotencyKey) {
+        if (idempotencyKey == null || idempotencyKey.isBlank()) {
+            return processingService.process(request.id(), request.cardNumber(), request.requestedStatus());
+        }
+        return idempotencyService.execute(idempotencyKey, ProcessingResult.class,
+                () -> processingService.process(request.id(), request.cardNumber(), request.requestedStatus()));
     }
 
     @PostMapping("/status/batch")
